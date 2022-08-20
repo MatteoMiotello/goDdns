@@ -3,6 +3,11 @@ module goRdns
 go 1.17
 
 require (
+	github.com/cloudflare/cloudflare-go v0.47.1
+	github.com/joho/godotenv v1.4.0
+)
+
+require (
 	4d63.com/gochecknoglobals v0.1.0 // indirect
 	github.com/Antonboom/errname v0.1.7 // indirect
 	github.com/Antonboom/nilnil v0.1.1 // indirect
@@ -36,7 +41,6 @@ require (
 	github.com/charithe/durationcheck v0.0.9 // indirect
 	github.com/chavacava/garif v0.0.0-20220316182200-5cad0b5181d4 // indirect
 	github.com/client9/misspell v0.3.4 // indirect
-	github.com/cloudflare/cloudflare-go v0.47.1 // indirect
 	github.com/daixiang0/gci v0.6.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/denis-tingaikin/go-header v0.4.3 // indirect
@@ -103,7 +107,6 @@ require (
 	github.com/jgautheron/goconst v1.5.1 // indirect
 	github.com/jingyugao/rowserrcheck v1.1.1 // indirect
 	github.com/jirfag/go-printf-func-name v0.0.0-20200119135958-7558a9eaa5af // indirect
-	github.com/joho/godotenv v1.4.0 // indirect
 	github.com/julz/importas v0.1.0 // indirect
 	github.com/kevinburke/ssh_config v0.0.0-20201106050909-4977a11b4351 // indirect
 	github.com/kisielk/errcheck v1.6.2 // indirect

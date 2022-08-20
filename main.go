@@ -40,12 +40,18 @@ func main() {
 
 	record := cloudflare.DNSRecord{
 		Name: os.Getenv("DNS_RECORD"),
+		Type: "A",
 	}
 
 	recordsDetails, err := api.DNSRecords(ctx, zoneId, record)
 	recordDetails := recordsDetails[0]
 
 	fmt.Printf("id: %s\n", recordDetails.ID)
+
+	if recordDetails.Content == currentIp {
+		fmt.Printf( "same ip of current\n" )
+		os.Exit(0);
+	}
 
 	recordDetails.Content = currentIp
 
@@ -56,5 +62,5 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Printf("DNS updated successfully")
+	fmt.Printf("DNS updated successfully\n")
 }
