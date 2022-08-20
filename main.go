@@ -2,15 +2,23 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"github.com/cloudflare/cloudflare-go"
-	"github.com/joho/godotenv"
 	"goRdns/clients"
 	"os"
 )
 
 func main() {
-	godotenv.Load()
+	name := flag.String("zone", "test.cm", "zone name")
+	dnsName := flag.String("record", "test", "record name")
+	email := flag.String("email", "test@gmail.com", "cloudflare email")
+	token := flag.String("token", "", "cloudflare token")
+
+	flag.Parse()
+
+	var zoneName string = *name
+	var dnsRecordName string = *dnsName
 
 	currentIp, err := clients.GetCurrentPublicIp()
 
@@ -21,14 +29,14 @@ func main() {
 
 	fmt.Printf("Current IP: %s\n", currentIp)
 
-	api, err := clients.GetCloudflareClient()
+	api, err := clients.GetCloudflareClient(*email, *token)
 
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
-	zoneId, err := api.ZoneIDByName(os.Getenv("ZONE_NAME"))
+	zoneId, err := api.ZoneIDByName(zoneName)
 
 	if err != nil {
 		os.Exit(1)
@@ -39,7 +47,7 @@ func main() {
 	ctx := context.Background()
 
 	record := cloudflare.DNSRecord{
-		Name: os.Getenv("DNS_RECORD"),
+		Name: dnsRecordName + "." + zoneName,
 		Type: "A",
 	}
 
@@ -49,8 +57,8 @@ func main() {
 	fmt.Printf("id: %s\n", recordDetails.ID)
 
 	if recordDetails.Content == currentIp {
-		fmt.Printf( "same ip of current\n" )
-		os.Exit(0);
+		fmt.Printf("same ip of current\n")
+		os.Exit(0)
 	}
 
 	recordDetails.Content = currentIp
